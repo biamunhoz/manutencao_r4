@@ -1,0 +1,8 @@
+<h1>Status de obra</h1>
+<p>
+  <strong>Status de Obra:</strong>
+  <%= @statusobra.statusobra_type %>
+</p>
+
+<%= link_to 'Editar', edit_statusobra_path(@statusobra), class: 'btn btn-info active' %> |
+<%= link_to 'Voltar', statusobras_path, class: 'btn btn-dark active' %>

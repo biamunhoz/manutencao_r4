@@ -1,0 +1,5 @@
+<div class="field">
+    <%= f.label :parecer,'Comentário referente ao chamado' %><br>
+    <%= f.text_area :parecer, class: 'form-control'  %>
+    <%= f.hidden_field :usuario_id, value: (f.object.usuario_id == nil ? current_user.id : f.object.usuario_id)  %>
+</div>

@@ -1,0 +1,13 @@
+<h1>Avisos</h1>
+<p>
+  <strong>Descrição:</strong>
+  <%= @aviso.descricao %>
+</p>
+
+<p>
+  <strong>Recado de:</strong>
+  <%= @aviso.usuario.nomeUsuario %>
+</p>
+
+<%= link_to 'Editar', edit_aviso_path(@aviso), class: 'btn btn-success active' %> |
+<%= link_to 'Voltar', avisos_path, class: 'btn btn-dark active' %>

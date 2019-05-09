@@ -1,0 +1,21 @@
+<%= form_for(@statusobra) do |f| %>
+  <% if @statusobra.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@statusobra.errors.count, "error") %> prohibited this statusobra from being saved:</h2>
+
+      <ul>
+      <% @statusobra.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :statusobra_type, "Status" %><br>
+    <%= f.text_field :statusobra_type, class: 'form-control' %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Salvar", class: 'form-control bnt bnt-lg btn-success mb-3 mb-md-0' %>
+  </div>
+<% end %>

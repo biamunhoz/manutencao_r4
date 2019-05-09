@@ -1,0 +1,103 @@
+<h1> Pedido</h1>
+<p>
+  <strong>Assunto:</strong>
+  <%= @request.subject %>
+</p>
+
+<p>
+  <strong>Local da Solicitação:</strong>
+  <%= @request.request_local %>
+</p>
+
+<p>
+  <strong>Descrição do Problema:</strong>
+  <%= @request.problem_description %>
+</p>
+
+<p>
+  <strong>Prédio:</strong>
+  <%= @request.building.building_type %>
+</p>
+
+<p>
+  <strong>Departamento:</strong>
+  <%= @request.department.department_type %>
+</p>
+
+<p>
+  <strong>Categoria:</strong>
+  <%= @request.category.category_type %>
+</p>
+
+<p>
+  <strong>Usuário:</strong>
+  <%= @request.usuario.nomeUsuario %>
+</p>
+
+<p>
+  <strong>Verba para execução:</strong>
+  <%= @request.verbamaterial %>
+</p>
+
+<p>
+  <strong>Data da solicitação:</strong>
+  <%= @request.created_at.strftime("%d/%m/%Y %H:%M:%S") %>
+</p>
+
+<p>
+  <strong>Foto do problema:</strong>
+  <%= link_to(image_tag(@request.foto1_url(:thumb)),@request.foto1_url, target: "_blank") if @request.present? %> <br>
+</p>
+
+<p>
+  <strong>Foto 2 do problema:</strong>
+  <%= link_to(image_tag(@request.foto2_url(:thumb)),@request.foto2_url, target: "_blank") if @request.present? %> <br>
+</p>
+
+<p>
+  <strong>Foto 3 do problema:</strong>
+  <%= link_to(image_tag(@request.foto3_url(:thumb)),@request.foto3_url, target: "_blank") if @request.present? %> <br>
+</p>
+
+<p>
+  <strong>Técnico:</strong>
+  <%= tecnicodesignado(@request.tecnico_id) %>
+</p>
+
+<% if @request.comentarios.any? %>
+
+    <h1> Parecer </h1>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th class="text-center"> Parecer </th>
+        <th class="text-center"> Técnico </th>
+        <th class="text-center"> Data </th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <% @request.comentarios.each do |rc| %>
+          <tr>
+            <td> <%= rc.parecer %> </td>
+            <td> <%= rc.usuario.nomeUsuario %> </td>
+            <td> <%= rc.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% else %>
+    <h3> Não há parecer informado até o momento </h3>
+<% end %>
+
+<p>
+  <strong>Lista de Material pedido:</strong>
+  <%= @request.material %>
+</p>
+
+<% if @request.statusfin == nil and (session[:perfil] == "Técnico" or session[:perfil] == "Administrador")  %>
+    <%= link_to 'Enviar p/ Financeiro', enviarfin_path(@request), class: "btn btn-warning active"  %> |
+<% end %>
+
+<%= link_to 'Editar', edit_request_path(@request), class: 'btn btn-success active' %> |
+<%= link_to 'Voltar', requests_path, class: 'btn btn-dark active'  %>

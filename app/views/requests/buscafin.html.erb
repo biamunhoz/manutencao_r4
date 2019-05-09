@@ -1,0 +1,69 @@
+<script type="text/javascript">
+    $(function() {
+        oTable = $('#pedidos').dataTable({
+            "iDisplayLength": 10,
+            "sPaginationType":"full_numbers",
+            "bJQueryUI":true,
+            "aaSorting":[0, "desc"],
+            "bLengthChange":false,
+            "oLanguage":{
+                "sInfo":                "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoFiltered":        "Filtrado de _MAX_ registros no total",
+                "sZeroRecords":         "Sem resultados",
+                "sInfoEmpty":           "",
+                "sSearch":              "Buscar",
+                "oPaginate": {
+                    "sFirst":           "Primeiro",
+                    "sPrevious":        "Anterior",
+                    "sNext":            "Próximo",
+                    "sLast":            "Ultimo"
+                }
+            }
+        });
+    });
+</script>
+
+<h1>Lista de Pedidos que foram enviados para o financeiro </h1>
+
+<table id="pedidos" class=" table table-bordered display">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Usuário</th>
+    <th>Assunto</th>
+    <th>Prédio</th>
+    <th>Categoria</th>
+    <th>Técnico</th>
+    <th>Data</th>
+    <th>Status do Pedido</th>
+    <th>Status do Financeiro</th>
+    <th>Ação</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @requests.each do |request| %>
+      <tr>
+        <td><%= link_to request.id, request    %></td>
+        <td><%= request.usuario.nomeUsuario    %></td>
+        <td><%= request.subject                %></td>
+        <td><%= request.building.building_type %></td>
+        <td><%= request.category.category_type %></td>
+        <td><%= tecnicodesignado(request.tecnico_id) %></td>
+        <td><%= request.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+        <td><%= request.status.status_type     %></td>
+        <td><%= request.statusfin              %></td>
+
+        <% if request.statusfin == "Aguardando compra" %>
+            <td><%= link_to 'Pedido comprado', pedidocomprado_path(request), class: 'btn btn-success active' %></td>
+        <% elsif request.statusfin == "Pedido comprado" %>
+            <td><%= link_to 'Material disponível', materialdisp_path(request), class: 'btn btn-warning active' %></td>
+        <% else %>
+            <td> Concluído para o setor financeiro</td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,0 +1,13 @@
+<div class="jumbotron">
+    <h1 class="display-6 arial">Editar Pedido</h1>
+
+    <p>
+      Pedido realizado por <%= @request.usuario.nomeUsuario %>
+    </p>
+    <br>
+
+    <%= render 'form' %>
+</div>
+
+<%= link_to 'Mostrar', @request, class: 'btn btn-info active'  %> |
+<%= link_to 'Voltar', requests_path, class: 'btn btn-dark active' %>

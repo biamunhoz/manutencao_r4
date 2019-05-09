@@ -1,0 +1,9 @@
+<p> NÃO RESPONDER ESTE E-MAIL, É APENAS PARA SUA INFORMAÇÃO </p>
+
+<p><b>Foi criado um novo informativo de obra para sua análise. Favor verificar</b></p>
+
+<p>Num. Solicitação: <%= @informativo.id %> </p>
+<p>Local: <%= @informativo.local %></p>
+<p>Prédio: <%= @informativo.building.building_type %></p>
+<p>Previsão de início: <%= @informativo.previnicio.strftime("%d/%m/%Y") %></p>
+<p>Pedido criado por: <%= @informativo.usuario.nomeUsuario %></p>

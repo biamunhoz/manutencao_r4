@@ -1,0 +1,7 @@
+<div class="field">
+
+  <%= f.label :usuario_id ,'Técnico' %><br>
+  <%= f.select :usuario_id, options_from_collection_for_select(@tecnicos, 'id', 'nomeUsuario', f.object.usuario_id) %>
+  <%= f.check_box :_destroy  %> Apagar</td>
+
+</div>

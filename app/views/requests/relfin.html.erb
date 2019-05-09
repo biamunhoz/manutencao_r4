@@ -1,0 +1,59 @@
+<%= form_tag(relfin_path, method: "get") do  %>
+    <h3> Relatório financeiro por departamento: </h3>
+
+    <p> <%= label_tag(:ano,  "Escolha o ano de referência") %>
+      <%= select_year(Date.today, start_year: 2019, end_year: 2029)  %>
+    </p>
+
+    <%= submit_tag "Enviar" , class: "btn btn-default" %>
+<% end %>
+
+<br>
+
+<p>Ano de referência: <b><%= @ano %></b></p>
+
+<table  class="table table-bordered">
+  <thead>
+  <tr>
+    <th class="text-center"> Departamento </th>
+    <th class="text-center"> Título </th>
+    <th class="text-center"> Local </th>
+    <th class="text-center"> Data do pedido</th>
+    <th class="text-center"> Status Financeiro </th>
+    <th class="text-center"> Material pedido </th>
+    <th class="text-center"> Verba selecionada </th>
+
+  </tr>
+  </thead>
+  <tbody>
+
+  <% departamento = "" %>
+
+  <% @relfin.each do |req| %>
+
+      <% if departamento == req.department_type %>
+          <% departamento = " " %>
+      <% else %>
+          <% departamento = req.department_type %>
+      <% end %>
+
+      <% if departamento == "" %>
+          <% departamento = req.department_type %>
+      <% end %>
+
+      <tr>
+        <td><%= departamento %> </td>
+        <td><%= req.subject %> </td>
+        <td><%= req.request_local %> </td>
+        <td><%= req.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= req.statusfin %> </td>
+        <td><%= req.material %> </td>
+        <td><%= req.verbamaterial %> </td>
+      </tr>
+
+
+
+  <% end %>
+
+  </tbody>
+</table>

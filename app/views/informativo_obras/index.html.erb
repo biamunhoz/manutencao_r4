@@ -1,0 +1,91 @@
+<script type="text/javascript">
+    $(function() {
+        oTable = $('#infobras').dataTable({
+            "iDisplayLength": 10,
+            "sPaginationType":"full_numbers",
+            "bJQueryUI":true,
+            "aaSorting":[0, "desc"],
+            "bLengthChange":false,
+            "oLanguage":{
+                "sInfo":                "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoFiltered":        "Filtrado de _MAX_ registros no total",
+                "sZeroRecords":         "Sem resultados",
+                "sInfoEmpty":           "",
+                "sSearch":              "Buscar",
+                "oPaginate": {
+                    "sFirst":           "Primeiro",
+                    "sPrevious":        "Anterior",
+                    "sNext":            "Próximo",
+                    "sLast":            "Ultimo"
+                }
+            }
+        });
+    });
+</script>
+
+<h1>Lista de Informativo prévio de obras e reformas </h1>
+
+<p id="notice"><%= notice %></p>
+
+<table id="infobras" class=" table table-bordered display">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Local</th>
+      <th>Prédio</th>
+      <th>Departmento</th>
+      <th>Andar</th>
+      <th>Prev. Início</th>
+      <th>Prev. Término</th>
+      <th>Feito por</th>
+      <th>Status</th>
+      <th>Edição</th>
+      <th>Enviar p/ análise</th>
+      <th>Ação ADM</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @informativo_obras.each do |informativo_obra| %>
+      <tr>
+        <td><%= link_to informativo_obra.id, informativo_obra %></td>
+        <td><%= informativo_obra.local %></td>
+        <td><%= informativo_obra.building.building_type %></td>
+        <td><%= informativo_obra.department.department_type %></td>
+        <td><%= informativo_obra.andar %></td>
+        <td><%= informativo_obra.previnicio.strftime("%d/%m/%Y")%></td>
+        <td><%= informativo_obra.prevtermino.strftime("%d/%m/%Y") %></td>
+        <td><%= informativo_obra.usuario.nomeUsuario %></td>
+        <td><%= informativo_obra.statusobra.statusobra_type %></td>
+
+        <% if session[:perfil] == "Administrador" or (informativo_obra.usuario == current_user and informativo_obra.statusobra.statusobra_type == "Salvo") %>
+             <td><%= link_to 'Editar', edit_informativo_obra_path(informativo_obra), class: 'btn btn-success active' %></td>
+        <% else %>
+            <td></td>
+        <% end %>
+
+        <% if informativo_obra.statusobra.statusobra_type == "Salvo" and informativo_obra.usuario == current_user %>
+            <td><%= link_to 'Sim, enviar', enviaranalise_path(informativo_obra), data: { confirm: 'Você tem certeza que deseja enviar para análise?' }, class: "btn btn-warning active"  %></td>
+        <% else %>
+            <td></td>
+        <% end %>
+
+
+        <% if informativo_obra.statusobra.statusobra_type == "Obra autorizada" and session[:perfil] == "Administrador" %>
+            <td><%= link_to 'Concluído', concluida_path(informativo_obra), data: { confirm: 'Você tem certeza que a obra foi concluída?' }, class: "btn btn-info active"  %></td>
+        <% elsif informativo_obra.statusobra.statusobra_type == "Obra concluída" %>
+            <td>Conclusão: <%= informativo_obra.dataconclusao.strftime("%d/%m/%Y")%></td>
+        <% else %>
+            <td></td>
+        <% end %>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Novo Informativo de obra e reformas', new_informativo_obra_path, class: 'btn btn-primary active' %>
+
+<%= link_to "Termo de compromisso", "http://sistemas.icb.usp.br/intranet/images/5/51/Termo_de_compromisso_-_Obras_ICB.pdf", target: "_blank", class: 'btn btn-success active' %>

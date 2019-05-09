@@ -1,0 +1,105 @@
+<%= form_for(@request) do |f| %>
+  <% if @request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
+
+      <ul>
+        <% @request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :subject, "Assunto" %><br>
+    <%= f.text_field :subject, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :request_local, 'Local da Solicitação' %><br>
+    <%= f.text_field :request_local, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :problem_description,'Descrição do Problema'  %><br>
+    <%= f.text_area :problem_description, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :building_id,'Prédio' %><br>
+    <%= f.select("building_id", Building.where(:desativado => false).collect {|l| [ l.building_type, l.id ] })  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :department_id,'Departamento' %><br>
+    <%= f.select("department_id", Department.where(:desativado => false).collect {|l| [ l.department_type, l.id ] })  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :category_id,'Selecione a Categoria' %><br>
+    <%= f.select("category_id", Category.where(:desativado => false).collect {|l| [ l.category_type, l.id ] })  %>
+  </div>
+
+  <br>
+  <div>
+      <fieldset>
+        <legend> Caso necessite comprar material para a execução desse pedido, por favor consulte a assistência financeira</legend>
+            <%= f.label :verbamaterial,'Após a consulta, escolha a verba para execução' %><br>
+            <%= f.select :verbamaterial,([['Docente'],['Administração'],['Departamento']]),  class: "form-control"  %>
+
+      </fieldset>
+  </div>
+
+  <br>
+  <div>
+    <fieldset>
+        <legend> Se desejar, adicione até 3 fotos referente a solicitação </legend>
+
+        <%= f.label :foto1, "Foto 1" %><br>
+        <%= f.file_field :foto1, class: 'form-control' %>
+
+        <%= f.label :foto2, "Foto 2" %><br>
+        <%= f.file_field :foto2, class: 'form-control' %>
+
+        <%= f.label :foto3, "Foto 3" %><br>
+        <%= f.file_field :foto3, class: 'form-control' %>
+
+    </fieldset>
+  </div>
+
+    <% if session[:perfil] == "Técnico" or session[:perfil] == "Administrador" %>
+
+        <div class="field">
+          <%= f.label :tecnico_id ,'Técnico' %><br>
+
+          <% if session[:perfil] == "Administrador" %>
+              <%= f.select :tecnico_id, options_from_collection_for_select(@tecnicos, 'id', 'nomeUsuario', f.object.tecnico_id ) %>
+
+          <% elsif session[:perfil] == "Técnico" %>
+              <%= f.hidden_field :tecnico_id, value: current_user.id %>
+              <%= current_user.nomeUsuario %>
+          <% end %>
+
+       </div>
+
+        <div class="field">
+          <%= f.label :status_id,'Selecione o status do pedido' %><br>
+          <%= f.select("status_id", Status.where(:desativado => false).collect {|l| [ l.status_type, l.id ]})  %>
+        </div>
+
+        <div class="field">
+          <%= f.label :material,'Lista de compras de material' %><br>
+          <%= f.text_area :material, class: 'form-control'  %>
+        </div>
+
+        <%= f.fields_for :comentarios  do |c|  %>
+            <%= render 'comentario_fields', f:c %>
+        <% end %>
+        <p><%= link_to_add_association 'Novo comentário', f, :comentarios, class: "btn btn-link" %> </p>
+
+    <% end %>
+
+    <br>
+
+	<div class="actions">
+		<%= f.submit "Salvar" ,class: 'form-control bnt bnt-lg btn-success mb-3 mb-md-0' %>
+	</div>
+<% end %>

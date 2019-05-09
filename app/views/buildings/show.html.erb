@@ -1,0 +1,37 @@
+<h1> Prédios </h1>
+<p>
+  <strong>Prédio</strong>
+  <%= @building.building_type %>
+</p>
+
+
+<% if @building.atendimentos.any? %>
+
+    <h1> Técnicos cadastrados</h1>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th class="text-center"> Técnico </th>
+        <th class="text-center"> Data</th>
+
+      </tr>
+      </thead>
+      <tbody>
+
+      <% @building.atendimentos.each do |rc| %>
+          <tr>
+            <td> <%= rc.usuario.nomeUsuario %> </td>
+            <td> <%= rc.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% else %>
+    <h3> Não há técnico cadastrado para este prédio </h3>
+<% end %>
+
+
+
+<%= link_to 'Editar', edit_building_path(@building), class: 'btn btn-success active'  %> |
+<%= link_to 'Voltar', buildings_path, class: 'btn btn-dark active' %>

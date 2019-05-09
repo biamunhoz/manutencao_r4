@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  local: MyString
+  building_id: 1
+  department_id: 1
+  andar: MyString
+  laboratorio: MyString
+  contratante: MyString
+  ramal: MyString
+  email: MyString
+  descricao: MyString
+  intervencaologica: MyString
+  intervencaotelefonia: MyString
+  nomeemp: MyString
+  cnpjemp: MyString
+  foneemp: MyString
+  responsavelemp: MyString
+  rgemp: MyString
+  nomeemergencia: MyString
+  foneemergencia: MyString
+  previnicio: 2019-04-23
+  prevtermino: 2019-04-23
+  origemrecurso: MyString
+  usuario_id: 1
+
+two:
+  local: MyString
+  building_id: 1
+  department_id: 1
+  andar: MyString
+  laboratorio: MyString
+  contratante: MyString
+  ramal: MyString
+  email: MyString
+  descricao: MyString
+  intervencaologica: MyString
+  intervencaotelefonia: MyString
+  nomeemp: MyString
+  cnpjemp: MyString
+  foneemp: MyString
+  responsavelemp: MyString
+  rgemp: MyString
+  nomeemergencia: MyString
+  foneemergencia: MyString
+  previnicio: 2019-04-23
+  prevtermino: 2019-04-23
+  origemrecurso: MyString
+  usuario_id: 1

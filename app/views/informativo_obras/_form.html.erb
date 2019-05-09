@@ -1,0 +1,234 @@
+<script language="javascript">
+    $(function() {
+        $(".datepicker").datepicker({
+            format: "dd/mm/yyyy",
+            language: 'pt-BR'
+        })
+    });
+</script>
+
+<%= form_for(@informativo_obra) do |f| %>
+  <% if @informativo_obra.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@informativo_obra.errors.count, "error") %> prohibited this informativo_obra from being saved:</h2>
+
+      <ul>
+      <% @informativo_obra.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :local, "Local da obra" %><br>
+    <%= f.text_field :local, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :building_id, "Prédio" %><br>
+    <%= f.select("building_id", Building.where(:desativado => false).collect {|l| [ l.building_type, l.id ] }, class: 'form-control' )  %>
+  </div>
+  <div class="field">
+    <%= f.label :department_id, "Departamento" %><br>
+    <%= f.select("department_id", Department.where(:desativado => false).collect {|l| [ l.department_type, l.id ] }, class: 'form-control' ) %>
+  </div>
+  <div class="field">
+    <%= f.label :andar, "Andar" %><br>
+    <%= f.text_field :andar, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :laboratorio, "Laboratório" %><br>
+    <%= f.text_field :laboratorio, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :contratante, "Contratante Responsável" %><br>
+    <%= f.text_field :contratante, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :ramal, "Ramal" %><br>
+    <%= f.text_field :ramal, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :email, "E-mail" %><br>
+    <%= f.text_field :email, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :descricao, "Descrição sucinta da intervenção a ser executada" %><br>
+    <%= f.text_area :descricao, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :intervencaologica, "A intervenção a ser executada irá interferir nas redes de lógica do Instituto?" %><br>
+    <%= f.select :intervencaologica, options_for_select([['Sim', true],['Não', false]], :selected => f.object.intervencaologica, class: 'form-control') %>
+  </div>
+  <div class="field">
+    <%= f.label :intervencaotelefonia, "A intervenção a ser executada irá interferir nas redes de telefonia do Instituto?" %><br>
+    <%= f.select :intervencaotelefonia, options_for_select([['Sim', true],['Não', false]], :selected => f.object.intervencaotelefonia, class: 'form-control') %>
+  </div>
+  <div class="field">
+    <%= f.label :nomeemp, "Nome da empresa contratada" %><br>
+    <%= f.text_field :nomeemp, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :cnpjemp, "CNPJ" %><br>
+    <%= f.text_field :cnpjemp, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :foneemp, "Fone" %><br>
+    <%= f.text_field :foneemp, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :responsavelemp, "Nome do responsável" %><br>
+    <%= f.text_field :responsavelemp, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :rgemp, "RG" %><br>
+    <%= f.text_field :rgemp, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :nomeemergencia, "Nome para contato, em caso de emergência" %><br>
+    <%= f.text_field :nomeemergencia, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :foneemergencia, "Telefone para contato, em caso de emergência" %><br>
+    <%= f.text_field :foneemergencia, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.label :previnicio, "Previsão de Início" %><br>
+    <%= f.text_field :previnicio, class: 'datepicker' %>
+  </div>
+  <div class="field">
+    <%= f.label :prevtermino, "Previsão de Término"  %><br>
+    <%= f.text_field :prevtermino, class: 'datepicker' %>
+  </div>
+  <div class="field">
+    <%= f.label :origemrecurso, "Origem dos recursos financeiros" %><br>
+    <%= f.text_field :origemrecurso, class: 'form-control'  %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :usuario_id, value: (f.object.usuario_id == nil ? current_user.id : f.object.usuario_id) %>
+  </div>
+
+  <% if session[:perfil] == "Administrador" %>
+
+    <div class="field">
+      <%= f.label :statusobra_id,'Selecione o status do informativo' %><br>
+      <%= f.select("statusobra_id", Statusobra.where(:desativado => false).collect {|l| [ l.statusobra_type, l.id ]})  %>
+    </div>
+
+   <div class="field">
+     <%= f.label :justificativa,'Caso a obra não seja autorizada, por favor, coloque a justificativa' %><br>
+     <%= f.text_area :justificativa, class: 'form-control'  %>
+   </div>
+
+   <div class="field">
+      <%= f.label :dataconclusao, "Data da conclusão da obra" %><br>
+      <%= f.text_field :dataconclusao, class: 'datepicker' %>
+   </div>
+
+  <% end %>
+
+  <br>
+  <div>
+      <fieldset>
+        <legend> Se desejar, adicione até 10 plantas da obra referente a solicitação </legend>
+
+        <%= f.label :planta1, "Planta 1" %><br>
+        <%= f.file_field :planta1, class: 'form-control' %>
+
+        <%= f.label :planta2, "Planta 2" %><br>
+        <%= f.file_field :planta2, class: 'form-control' %>
+
+        <%= f.label :planta3, "Planta 3" %><br>
+        <%= f.file_field :planta3, class: 'form-control' %>
+
+        <%= f.label :planta4, "Planta 4" %><br>
+        <%= f.file_field :planta4, class: 'form-control' %>
+
+        <%= f.label :planta5, "Planta 5" %><br>
+        <%= f.file_field :planta5, class: 'form-control' %>
+
+        <%= f.label :planta6, "Planta 6" %><br>
+        <%= f.file_field :planta6, class: 'form-control' %>
+
+        <%= f.label :planta7, "Planta 7" %><br>
+        <%= f.file_field :planta7, class: 'form-control' %>
+
+        <%= f.label :planta8, "Planta 8" %><br>
+        <%= f.file_field :planta8, class: 'form-control' %>
+
+        <%= f.label :planta9, "Planta 9" %><br>
+        <%= f.file_field :planta9, class: 'form-control' %>
+
+        <%= f.label :planta10, "Planta 10" %><br>
+        <%= f.file_field :planta10, class: 'form-control' %>
+
+      </fieldset>
+  </div>
+
+  <br>
+  <div>
+     <fieldset>
+        <legend> Se desejar, adicione até 10 documentos da obra referente a solicitação </legend>
+
+        <%= f.label :oficio1, "Ofício 1" %><br>
+        <%= f.file_field :oficio1, class: 'form-control' %>
+
+        <%= f.label :oficio2, "Ofício 2" %><br>
+        <%= f.file_field :oficio2, class: 'form-control' %>
+
+        <%= f.label :oficio3, "Ofício 3" %><br>
+        <%= f.file_field :oficio3, class: 'form-control' %>
+
+        <%= f.label :oficio4, "Ofício 4" %><br>
+        <%= f.file_field :oficio4, class: 'form-control' %>
+
+        <%= f.label :oficio5, "Ofício 5" %><br>
+        <%= f.file_field :oficio5, class: 'form-control' %>
+
+       <%= f.label :oficio6, "Ofício 6" %><br>
+       <%= f.file_field :oficio6, class: 'form-control' %>
+
+       <%= f.label :oficio7, "Ofício 7" %><br>
+       <%= f.file_field :oficio7, class: 'form-control' %>
+
+       <%= f.label :oficio8, "Ofício 8" %><br>
+       <%= f.file_field :oficio8, class: 'form-control' %>
+
+       <%= f.label :oficio9, "Ofício 9" %><br>
+       <%= f.file_field :oficio9, class: 'form-control' %>
+
+       <%= f.label :oficio10, "Ofício 10" %><br>
+       <%= f.file_field :oficio10, class: 'form-control' %>
+
+      </fieldset>
+  </div>
+
+    <br>
+    <div>
+      <fieldset>
+        <legend> Se desejar, adicione até 5 fotos da obra referente a solicitação </legend>
+
+        <%= f.label :fotoobra1, "Foto 1" %><br>
+        <%= f.file_field :fotoobra1, class: 'form-control' %>
+
+        <%= f.label :fotoobra2, "Foto 2" %><br>
+        <%= f.file_field :fotoobra2, class: 'form-control' %>
+
+        <%= f.label :fotoobra3, "Foto 3" %><br>
+        <%= f.file_field :fotoobra3, class: 'form-control' %>
+
+        <%= f.label :fotoobra4, "Foto 4" %><br>
+        <%= f.file_field :fotoobra4, class: 'form-control' %>
+
+        <%= f.label :fotoobra5, "Foto 5" %><br>
+        <%= f.file_field :fotoobra5, class: 'form-control' %>
+
+      </fieldset>
+    </div>
+
+<br>
+
+  <div class="actions">
+    <%= f.submit "Salvar" ,class: 'form-control bnt bnt-lg btn-success mb-3 mb-md-0' %>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<h1>Departamentos</h1>
+
+<p>
+  <strong>Nome do Departamento:</strong>
+  <%= @department.department_type %>
+</p>
+
+<p>
+  <strong>Localizado no Prédio:</strong>
+  <%= @department.building.building_type %>
+</p>
+
+<%= link_to 'Editar', edit_department_path(@department), class: 'btn btn-success active' %> |
+<%= link_to 'Voltar', departments_path, class: 'btn btn-dark active' %>

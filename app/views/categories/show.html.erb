@@ -1,0 +1,8 @@
+<h1> Categorias </h1>
+<p>
+  <strong>Categoria:</strong>
+  <%= @category.category_type %>
+</p>
+
+<%= link_to 'Editar', edit_category_path(@category), class: 'btn btn-success active'  %> |
+<%= link_to 'Voltar', categories_path, class: 'btn btn-dark active'  %>

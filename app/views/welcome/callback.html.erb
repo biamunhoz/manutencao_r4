@@ -1,0 +1,7 @@
+<h1>
+  <% if session[:bmostraraviso] == true and (session[:perfil] == "Administrador" or session[:perfil] == "Zelador" or session[:perfil] == "Técnico" )   %>
+      <%= session[:avisoatual] %>
+      <% session[:bmostraraviso] = false %>
+  <% end %>
+</h1>
+

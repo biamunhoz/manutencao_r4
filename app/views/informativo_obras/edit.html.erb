@@ -1,0 +1,14 @@
+<div class="jumbotron">
+  <h1 class="display-6 arial">Editar Informativo prévio de obras e reformas</h1>
+
+  <p>
+    Informativo realizado por <%= @informativo_obra.usuario.nomeUsuario %>
+  </p>
+  <br>
+
+  <%= render 'form' %>
+</div>
+
+
+<%= link_to 'Mostrar', @informativo_obra, class: 'btn btn-info active' %> |
+<%= link_to 'Voltar', informativo_obras_path, class: 'btn btn-dark active' %>

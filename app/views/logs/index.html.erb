@@ -1,0 +1,52 @@
+<script type="text/javascript">
+    $(function() {
+        oTable = $('#logs').dataTable({
+            "iDisplayLength": 15,
+            "sPaginationType":"full_numbers",
+            "bJQueryUI":true,
+            "aaSorting":[0, "desc"],
+            "bLengthChange":false,
+            "oLanguage":{
+                "sInfo":                "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoFiltered":        "Filtrado de _MAX_ registros no total",
+                "sZeroRecords":         "Sem resultados",
+                "sInfoEmpty":           "",
+                "sSearch":              "Buscar",
+                "oPaginate": {
+                    "sFirst":           "Primeiro",
+                    "sPrevious":        "Anterior",
+                    "sNext":            "Próximo",
+                    "sLast":            "Ultimo"
+                }
+            }
+        });
+    });
+</script>
+
+<h1>Lista de Logs</h1>
+
+<table id="logs" class=" table table-bordered display">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Ação</th>
+      <th>IP</th>
+      <th>Usuário</th>
+      <th>Data da ação</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @logs.each do |log| %>
+      <tr>
+        <th><%= log.id %></th>
+        <td><%= log.acao %></td>
+        <td><%= log.ip %></td>
+        <td><%= log.usuario.nomeUsuario %> </td>
+        <td><%= log.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

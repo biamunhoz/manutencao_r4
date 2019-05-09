@@ -1,0 +1,33 @@
+<%= form_tag(relpredio_path, method: "get") do  %>
+    <h3> Relatório por Prédio: </h3>
+
+    <p> <%= label_tag(:ano,  "Escolha o ano de referência") %>
+      <%= select_year(Date.today, start_year: 2019, end_year: 2029)  %>
+    </p>
+
+    <%= submit_tag "Enviar" , class: "btn btn-default" %>
+<% end %>
+
+<br>
+
+<p>Ano de referência: <b><%= @ano %></b></p>
+
+<table  class="table table-bordered">
+  <thead>
+  <tr>
+    <th class="text-center"> Prédio </th>
+    <th class="text-center"> Total </th>
+
+  </tr>
+  </thead>
+  <tbody>
+
+  <% @reqstatus.each do |req| %>
+      <tr>
+        <td><%= req.building_type %> </td>
+        <td><%= req.total %> </td>
+      </tr>
+  <% end %>
+
+  </tbody>
+</table>

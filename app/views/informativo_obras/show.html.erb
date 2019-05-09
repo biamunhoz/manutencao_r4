@@ -1,0 +1,172 @@
+<p>
+  <strong>Local:</strong>
+  <%= @informativo_obra.local %>
+</p>
+
+<p>
+  <strong>Prédio:</strong>
+  <%= @informativo_obra.building.building_type %>
+</p>
+
+<p>
+  <strong>Departmento:</strong>
+  <%= @informativo_obra.department.department_type %>
+</p>
+
+<p>
+  <strong>Andar:</strong>
+  <%= @informativo_obra.andar %>
+</p>
+
+<p>
+  <strong>Laboratório:</strong>
+  <%= @informativo_obra.laboratorio %>
+</p>
+
+<p>
+  <strong>Contratante Responsável:</strong>
+  <%= @informativo_obra.contratante %>
+</p>
+
+<p>
+  <strong>Ramal:</strong>
+  <%= @informativo_obra.ramal %>
+</p>
+
+<p>
+  <strong>E-mail:</strong>
+  <%= @informativo_obra.email %>
+</p>
+
+<p>
+  <strong>Descrição sucinta da intervenção a ser executada:</strong>
+  <%= @informativo_obra.descricao %>
+</p>
+
+<p>
+  <strong>A intervenção a ser executada irá interferir nas redes de lógica do Instituto?</strong>
+  <%= @informativo_obra.intervencaologica %>
+</p>
+
+<p>
+  <strong>A intervenção a ser executada irá interferir nas redes de telefonia do Instituto?</strong>
+  <%= @informativo_obra.intervencaotelefonia %>
+</p>
+
+<p>
+  <strong>Nome da empresa contratada:</strong>
+  <%= @informativo_obra.nomeemp %>
+</p>
+
+<p>
+  <strong>CNPJ:</strong>
+  <%= @informativo_obra.cnpjemp %>
+</p>
+
+<p>
+  <strong>Fone:</strong>
+  <%= @informativo_obra.foneemp %>
+</p>
+
+<p>
+  <strong>Nome do responsável:</strong>
+  <%= @informativo_obra.responsavelemp %>
+</p>
+
+<p>
+  <strong>RG:</strong>
+  <%= @informativo_obra.rgemp %>
+</p>
+
+<p>
+  <strong>Nome da pessoa para contato, em caso de emergência:</strong>
+  <%= @informativo_obra.nomeemergencia %>
+</p>
+
+<p>
+  <strong>Telefone da pessoa para contato, em caso de emergência:</strong>
+  <%= @informativo_obra.foneemergencia %>
+</p>
+
+<p>
+  <strong>Previsão de início:</strong>
+  <%= @informativo_obra.previnicio.strftime("%d/%m/%Y %H:%M:%S") %>
+</p>
+
+<p>
+  <strong>Previsão de término:</strong>
+  <%= @informativo_obra.prevtermino.strftime("%d/%m/%Y %H:%M:%S") %>
+</p>
+
+<p>
+  <strong>Origem dos recursos financeiros:</strong>
+  <%= @informativo_obra.origemrecurso %>
+</p>
+
+<p>
+  <strong>Feito por:</strong>
+  <%= @informativo_obra.usuario.nomeUsuario %>
+</p>
+
+<p>
+  <strong>Status do pedido:</strong>
+  <%= @informativo_obra.statusobra.statusobra_type %>
+</p>
+
+<p>
+  <strong>Justificativa:</strong>
+  <%= @informativo_obra.justificativa %>
+</p>
+
+
+<p> <strong> Ofício 1: </strong> <%= link_to File.basename(@informativo_obra.oficio1.url), @informativo_obra.oficio1.url if @informativo_obra.oficio1? %>  </p>
+<p> <strong> Ofício 2: </strong> <%= link_to File.basename(@informativo_obra.oficio2.url), @informativo_obra.oficio2.url if @informativo_obra.oficio2? %>  </p>
+<p> <strong> Ofício 3: </strong> <%= link_to File.basename(@informativo_obra.oficio3.url), @informativo_obra.oficio3.url if @informativo_obra.oficio3? %>  </p>
+<p> <strong> Ofício 4: </strong> <%= link_to File.basename(@informativo_obra.oficio4.url), @informativo_obra.oficio4.url if @informativo_obra.oficio4? %>  </p>
+<p> <strong> Ofício 5: </strong> <%= link_to File.basename(@informativo_obra.oficio5.url), @informativo_obra.oficio5.url if @informativo_obra.oficio5? %>  </p>
+<p> <strong> Ofício 6: </strong> <%= link_to File.basename(@informativo_obra.oficio6.url), @informativo_obra.oficio6.url if @informativo_obra.oficio6? %>  </p>
+<p> <strong> Ofício 7: </strong> <%= link_to File.basename(@informativo_obra.oficio7.url), @informativo_obra.oficio7.url if @informativo_obra.oficio7? %>  </p>
+<p> <strong> Ofício 8: </strong> <%= link_to File.basename(@informativo_obra.oficio8.url), @informativo_obra.oficio8.url if @informativo_obra.oficio8? %>  </p>
+<p> <strong> Ofício 9: </strong> <%= link_to File.basename(@informativo_obra.oficio9.url), @informativo_obra.oficio9.url if @informativo_obra.oficio9? %>  </p>
+<p> <strong> Ofício 10: </strong> <%= link_to File.basename(@informativo_obra.oficio10.url), @informativo_obra.oficio10.url if @informativo_obra.oficio10? %>  </p>
+
+<p> <strong> Planta 1: </strong> <%= link_to File.basename(@informativo_obra.planta1.url), @informativo_obra.planta1.url if @informativo_obra.planta1? %>  </p>
+<p> <strong> Planta 2: </strong> <%= link_to File.basename(@informativo_obra.planta2.url), @informativo_obra.planta2.url if @informativo_obra.planta2? %>  </p>
+<p> <strong> Planta 3: </strong> <%= link_to File.basename(@informativo_obra.planta3.url), @informativo_obra.planta3.url if @informativo_obra.planta3? %>  </p>
+<p> <strong> Planta 4: </strong> <%= link_to File.basename(@informativo_obra.planta4.url), @informativo_obra.planta4.url if @informativo_obra.planta4? %>  </p>
+<p> <strong> Planta 5: </strong> <%= link_to File.basename(@informativo_obra.planta5.url), @informativo_obra.planta5.url if @informativo_obra.planta5? %>  </p>
+<p> <strong> Planta 6: </strong> <%= link_to File.basename(@informativo_obra.planta6.url), @informativo_obra.planta6.url if @informativo_obra.planta6? %>  </p>
+<p> <strong> Planta 7: </strong> <%= link_to File.basename(@informativo_obra.planta7.url), @informativo_obra.planta7.url if @informativo_obra.planta7? %>  </p>
+<p> <strong> Planta 8: </strong> <%= link_to File.basename(@informativo_obra.planta8.url), @informativo_obra.planta8.url if @informativo_obra.planta8? %>  </p>
+<p> <strong> Planta 9: </strong> <%= link_to File.basename(@informativo_obra.planta9.url), @informativo_obra.planta9.url if @informativo_obra.planta9? %>  </p>
+<p> <strong> Planta 10: </strong> <%= link_to File.basename(@informativo_obra.planta10.url), @informativo_obra.planta10.url if @informativo_obra.planta10? %>  </p>
+
+<p><strong>Foto da obra 1:</strong>
+  <%= link_to(image_tag(@informativo_obra.fotoobra1_url(:thumb)),@informativo_obra.fotoobra1_url, target: "_blank") if @informativo_obra.present? %> <br>
+</p>
+
+<p><strong>Foto da obra 2:</strong>
+  <%= link_to(image_tag(@informativo_obra.fotoobra2_url(:thumb)),@informativo_obra.fotoobra2_url, target: "_blank") if @informativo_obra.present? %> <br>
+</p>
+
+<p><strong>Foto da obra 3:</strong>
+  <%= link_to(image_tag(@informativo_obra.fotoobra3_url(:thumb)),@informativo_obra.fotoobra3_url, target: "_blank") if @informativo_obra.present? %> <br>
+</p>
+
+<p><strong>Foto da obra 4:</strong>
+  <%= link_to(image_tag(@informativo_obra.fotoobra4_url(:thumb)),@informativo_obra.fotoobra4_url, target: "_blank") if @informativo_obra.present? %> <br>
+</p>
+
+<p><strong>Foto da obra 5:</strong>
+  <%= link_to(image_tag(@informativo_obra.fotoobra5_url(:thumb)),@informativo_obra.fotoobra5_url, target: "_blank") if @informativo_obra.present? %> <br>
+</p>
+
+<% if session[:perfil] == "Administrador" or (informativo_obra.usuario == current_user and informativo_obra.statusobra.statusobra_type == "Salvo") %>
+    <%= link_to 'Editar', edit_informativo_obra_path(@informativo_obra), class: 'btn btn-success active' %>
+<% end %>
+
+<% if @informativo_obra.statusobra.statusobra_type == "Salvo" %>
+    <%= link_to 'Enviar para análise', enviaranalise_path(@informativo_obra), class: 'btn btn-warning active' %>
+<% end %>
+
+<%= link_to 'Voltar', informativo_obras_path, class: 'btn btn-dark active' %>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ManutencaoR4</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+
+    <ul class="nav navbar-nav">
+
+      <% if session[:login] != nil %>
+
+          <% if session[:perfil] == "Comum" %>
+
+            <li class="lead"> <%= link_to "Pedidos", requests_path %></li>
+
+          <% elsif session[:perfil] == "Administrador" %>
+
+              <li class="lead">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastros</a>
+                <ul class="dropdown-menu" >
+                  <li role="presentation" class="lead"> <%= link_to "Categorias", categories_path %> </li>
+                  <li role="presentation" class="lead"> <%= link_to "Prédios", buildings_path %> </li>
+                  <li role="presentation" class="lead"> <%= link_to "Departamentos", departments_path %> </li>
+                  <li role="presentation" class="lead"> <%= link_to "Status", statuses_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Status de obra", statusobras_path %></li>
+                </ul>
+              </li>
+
+              <li class="lead">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuários</a>
+                <ul class="dropdown-menu" >
+                  <li role="presentation" class="lead"> <%= link_to "Perfil", perfils_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Usuários", usuarios_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Permissão", permitidos_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Logs", logs_path %></li>
+                </ul>
+              </li>
+
+              <li class="lead">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios</a>
+                <ul class="dropdown-menu" >
+                  <li role="presentation" class="lead"> <%= link_to "Status", relstatus_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Status por departamento", relstatusdepto_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Status por prédio", relstatuspredio_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Prédio", relpredio_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Departamento", reldepto_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Departamento (Financeiro)", relfin_path %></li>
+                </ul>
+              </li>
+
+              <li class="lead">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pedidos</a>
+                <ul class="dropdown-menu" >
+                  <li role="presentation" class="lead"> <%= link_to "Busca", resultindex_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Todos", requests_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Financeiro", buscafin_path %></li>
+                </ul>
+              </li>
+
+              <li class="lead"> <%= link_to "Avisos", avisos_path %> </li>
+
+          <% elsif session[:perfil] == "Técnico" or session[:perfil] == "Zelador" %>
+              <li class="lead">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pedidos</a>
+                <ul class="dropdown-menu" >
+                  <li role="presentation" class="lead"> <%= link_to "Busca", resultindex_path %></li>
+                  <li role="presentation" class="lead"> <%= link_to "Todos", requests_path %></li>
+                </ul>
+              </li>
+
+              <li class="lead"> <%= link_to "Avisos", avisos_path %> </li>
+
+          <% end %>
+
+          <li class="lead"> <%= link_to "Informativo de Obras", informativo_obras_path %></li>
+
+          <li class="lead"> <%= link_to "Sair" , logout_path %> </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+    <!--p> < %= session[:perfil] %> </p-->
+    <%= yield %>
+</div>
+
+
+</body>
+</html>

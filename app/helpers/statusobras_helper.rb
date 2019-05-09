@@ -1,0 +1,2 @@
+module StatusobrasHelper
+end

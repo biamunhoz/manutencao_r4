@@ -1,0 +1,100 @@
+<script type="text/javascript">
+    $(function() {
+        oTable = $('#pedidos').dataTable({
+            "iDisplayLength": 10,
+            "sPaginationType":"full_numbers",
+            "bJQueryUI":true,
+            "aaSorting":[0, "desc"],
+            "bLengthChange":false,
+            "oLanguage":{
+                "sInfo":                "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoFiltered":        "Filtrado de _MAX_ registros no total",
+                "sZeroRecords":         "Sem resultados",
+                "sInfoEmpty":           "",
+                "sSearch":              "Buscar",
+                "oPaginate": {
+                    "sFirst":           "Primeiro",
+                    "sPrevious":        "Anterior",
+                    "sNext":            "Próximo",
+                    "sLast":            "Ultimo"
+                }
+            }
+        });
+    });
+</script>
+
+
+
+<%= form_tag(resultindex_path, method: "get") do  %>
+    <h3> Busca por: </h3>
+
+    <p>
+        <%= label_tag(:building,  "Escolha um prédio ") %>
+        <%= select_tag :building, options_from_collection_for_select(@building, 'id', 'building_type'), include_blank:true %>
+
+        <%= label_tag(:category,  "Escolha uma categoria ") %>
+        <%= select_tag :category, options_from_collection_for_select(Category.where(:desativado => false), :id, :category_type), include_blank:true %>
+
+        <%= label_tag(:status,  "Escolha um status ") %>
+        <%= select_tag :status, options_from_collection_for_select(Status.where(:desativado => false), :id, :status_type), include_blank:true %>
+    </p>
+
+    <%= submit_tag "Enviar" , class: "btn btn-default" %>
+<% end %>
+
+
+<h1>Lista de Pedidos</h1>
+
+<table id="pedidos" class=" table table-bordered display">
+
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Usuário</th>
+    <th>Assunto</th>
+    <th>Prédio</th>
+    <th>Categoria</th>
+    <th>Status do Pedido</th>
+    <th>Status do Financeiro</th>
+    <th>Técnico</th>
+    <th>Data</th>
+    <th>Ação</th>
+    <th>Financeiro?</th>
+    <th>Finalizar?</th>
+  </tr>
+  </thead>
+
+
+  <tbody>
+      <% @requests.each do |request| %>
+          <tr>
+            <td><%= link_to request.id, request    %></td>
+            <td><%= request.usuario.nomeUsuario    %></td>
+            <td><%= request.subject                %></td>
+            <td><%= request.building.building_type %></td>
+            <td><%= request.category.category_type %></td>
+            <td><%= request.status.status_type     %></td>
+            <td><%= request.statusfin              %></td>
+            <td><%= tecnicodesignado(request.tecnico_id) %></td>
+            <td><%= request.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+
+            <% if request.usuario == current_user or (session[:perfil] == "Técnico" or session[:perfil] == "Administrador") %>
+                <td><%= link_to 'Editar', edit_request_path(request), class: 'btn btn-success active' %></td>
+            <% else %>
+                <td></td>
+            <% end %>
+
+            <% if request.statusfin == nil and (session[:perfil] == "Técnico" or session[:perfil] == "Administrador") and request.status.status_type != "Finalizado"  %>
+                <td><%= link_to 'Sim, enviar', enviarfin_path(request), data: { confirm: 'Você tem certeza que deseja enviar ao financeiro?' }, class: "btn btn-warning active"  %></td>
+                <td><%= link_to 'Sim, pedido resolvido', reqfinalizar_path(request), data: { confirm: 'Você tem certeza que deseja finalizar este pedido?' }, class: "btn btn-danger active"  %></td>
+            <% else %>
+                <td></td>
+                <td></td>
+            <% end %>
+          </tr>
+      <% end %>
+  </tbody>
+
+</table>
+<br>
+

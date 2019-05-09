@@ -1,0 +1,34 @@
+
+<div class="info-form">
+  <div class="justify-content-center">
+    <%= form_for(@building) do |f| %>
+      <% if @building.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@building.errors.count, "error") %> prohibited this building from being saved:</h2>
+
+          <ul>
+          <% @building.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :building_type, "Prédio" %><br>
+        <%= f.text_field :building_type, class: 'form-control' %>
+      </div>
+
+      <%= f.fields_for :atendimentos  do |a|  %>
+          <%= render 'atendimento_fields', f:a %>
+      <% end %>
+      <p><%= link_to_add_association 'Cadastrar técnico', f, :atendimentos, class: "btn btn-link" %> </p>
+
+
+      <div class="actions">
+        <%= f.submit "Salvar", class: 'form-control bnt bnt-lg btn-success mb-3 mb-md-0' %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

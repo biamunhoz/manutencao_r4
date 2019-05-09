@@ -1,0 +1,2 @@
+module InformativoObrasHelper
+end
